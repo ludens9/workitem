@@ -1,0 +1,1178 @@
+/* 구글 폰트 임포트 */
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
+
+/* 기본 리셋 및 공통 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Gowun Batang', serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.8;
+}
+
+/* 폰트 스타일 정의 */
+.h1b {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.8;
+}
+
+.h1w {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.8;
+}
+
+.h2b {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    line-height: 1.8;
+}
+
+.h2w {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.8;
+}
+
+.h3b {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    line-height: 1.8;
+}
+
+.h3w {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.8;
+}
+
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* 페이지 전환 관련 */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* 이미지 플레이스홀더 공통 스타일 */
+.image-placeholder {
+    background-color: #a6a6a6;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 로고 애니메이션 */
+.hero-logo {
+    transition: opacity 0.05s ease-in-out;
+}
+
+.hero-logo.fade-out {
+    opacity: 0;
+}
+
+.hero-logo.fade-in {
+    opacity: 1;
+}
+
+/* 버튼 공통 스타일 */
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    border-radius: 50px;
+}
+
+/* 버튼 스타일 정의 */
+.btn_a {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+}
+
+.btn_b {
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.95);
+    border: none;
+}
+
+.btn_line {
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 버튼 상태값 */
+.btn_a.selected {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.btn_b.selected {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.btn_line.selected {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* ===== 커버 페이지 스타일 ===== */
+#cover-page .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.hero-image {
+    width: 270px;
+    height: 270px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-lottie {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    transform: none;
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-logo {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* 타이핑 애니메이션 스타일 */
+#story-text {
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#typed-text {
+    white-space: pre-line;
+    word-wrap: break-word;
+    text-align: center;
+    width: 100%;
+}
+
+#cursor {
+    animation: blink 1s infinite;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+.description p {
+    white-space: pre-line;
+}
+
+.cta-section {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-button {
+    width: 80%;
+    padding: 16px 0;
+}
+
+/* 앱 소개 섹션 (커버페이지) */
+.app-intro-cover {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.app-intro-cover .app-logo-small {
+    width: 61px;
+    height: 20px;
+}
+
+.app-intro-cover .app-logo-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ===== 질문 페이지 스타일 ===== */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.left-logo {
+    flex: 1;
+}
+
+.left-logo-img {
+    width: 123px;
+    height: 78px;
+    object-fit: contain;
+}
+
+/* 공유하기 텍스트 버튼 */
+.share-text-button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* 진행 상태바 */
+.progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.progress-item {
+    flex: 1;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 1px;
+}
+
+.progress-item.active {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 질문 섹션 */
+.question-section {
+    text-align: center;
+}
+
+.question-title {
+    margin-bottom: 24px;
+}
+
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.answer-button {
+    padding: 16px 24px;
+    text-align: center;
+    width: 100%;
+}
+
+/* 답변 버튼 선택 상태 */
+.answer-button.selected {
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 타이틀+부연설명 버튼 구조 */
+.answer-button-complex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.answer-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    line-height: 1.8;
+}
+
+.answer-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    line-height: 1.8;
+}
+
+
+
+/* ===== 결과 페이지 스타일 ===== */
+/* 결과페이지 상단 네비게이션 */
+.result-top-nav {
+    justify-content: center;
+}
+
+.center-logo-result {
+    display: flex;
+    justify-content: center;
+}
+
+.center-logo-result-img {
+    width: 123px;
+    height: 78px;
+    object-fit: contain;
+}
+
+.result-section {
+    margin-bottom: 40px;
+}
+
+.result-section:last-child {
+    margin-bottom: 0;
+}
+
+/* 섹션 박스 공통 스타일 */
+.section-box {
+    padding: 24px 24px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    border-radius: 16px;
+}
+
+/* 구분선 */
+.section-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: 24px 0;
+}
+
+/* 첫번째 섹션: 커버 */
+.cover-section {
+    text-align: center;
+}
+
+.result-hero-image {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.result-lottie {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* effect2.lottie를 위한 최상위 레이어 스타일 */
+.result-lottie-top {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    z-index: 10; /* 가장 높은 z-index로 최상위에 위치 */
+    pointer-events: none;
+}
+
+.result-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    animation: floating 3s ease-in-out infinite;
+}
+
+/* 위아래 둥둥 애니메이션 */
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* 히든 인터랙션 최대 효과 애니메이션 */
+@keyframes maxEffect {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+    25% {
+        transform: scale(1.1) rotate(2deg);
+        filter: brightness(1.3);
+    }
+    50% {
+        transform: scale(1.05) rotate(-1deg);
+        filter: brightness(1.1);
+    }
+    75% {
+        transform: scale(1.08) rotate(1deg);
+        filter: brightness(1.2);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+}
+
+/* 클릭할 때마다 흔들거리는 효과 애니메이션 */
+@keyframes shakeEffect {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    25% {
+        transform: translateX(-5px) translateY(-3px);
+    }
+    50% {
+        transform: translateX(5px) translateY(3px);
+    }
+    75% {
+        transform: translateX(-3px) translateY(-2px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+
+
+
+/* 최대 강화 팝업 스타일 */
+.max-upgrade-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: popupFadeIn 0.3s ease-out;
+}
+
+.max-upgrade-content {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.max-upgrade-content h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.max-upgrade-content p {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.max-upgrade-content button {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.max-upgrade-content button:hover {
+    background-color: #333333;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 로띠 애니메이션 색상 변경을 위한 CSS 변수 */
+:root {
+    --lottie-color: rgb(255, 255, 0); /* 기본 노란색 */
+}
+
+/* 로띠 애니메이션 색상 적용 */
+.result-lottie,
+.result-lottie-top {
+    filter: hue-rotate(0deg) saturate(1);
+    transition: filter 0.3s ease;
+}
+
+/* ===== 이름 입력 팝업 스타일 ===== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-overlay.show {
+    display: flex;
+}
+
+.popup-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: popupFadeIn 0.3s ease-out;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.popup-title {
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.popup-description {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.name-input-container {
+    margin-bottom: 30px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+    font-family: 'Gowun Batang', serif;
+}
+
+.name-input:focus {
+    border-color: #007AFF;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+}
+
+.popup-button {
+    flex: 1;
+    width: 100%;
+    padding: 16px 0;
+}
+
+.popup-cancel-button {
+    flex: 1;
+    width: 100%;
+    padding: 16px 0;
+}
+
+.result-title {
+    margin-bottom: 24px;
+}
+
+.result-title-text {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    width: 100%;
+    line-height: 1.8;
+    text-align: center;
+    white-space: pre-line;
+    word-break: keep-all;
+}
+
+/* 결과 버튼 영역 */
+.result-button-area {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.result-share-button {
+    flex: 1;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+/* 두번째 섹션: 설명 */
+.description-section {
+    text-align: left;
+}
+
+.description-title {
+    text-align: center;
+}
+
+.section-title {
+    margin-bottom: 0;
+}
+
+.detail-area {
+    margin-bottom: 0;
+}
+
+/* 동료 영역 */
+.colleague-area {
+    margin-bottom: 24px;
+}
+
+.colleague-item {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 16px;
+}
+
+.colleague-item:last-child {
+    margin-bottom: 0;
+}
+
+.colleague-image {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.colleague-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.colleague-img img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+}
+
+.colleague-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    text-align: left;
+}
+
+/* 섹션 버튼 */
+.section-button-area {
+    margin-bottom: 0;
+}
+
+.section-button {
+    width: 100%;
+    padding: 16px 0;
+}
+
+/* 세번째 섹션: 요약 */
+.summary-section {
+    text-align: left;
+}
+
+.summary-item {
+    margin-bottom: 24px;
+}
+
+.summary-item:last-of-type {
+    margin-bottom: 0;
+}
+
+.summary-item h4 {
+    margin-bottom: 8px;
+}
+
+.summary-item p {
+    margin-bottom: 0;
+}
+
+/* 네번째 섹션: 앱 소개 */
+.app-section {
+    text-align: center;
+}
+
+.app-logo {
+    margin-bottom: 24px;
+}
+
+.app-logo-img {
+    width: 61px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.app-description {
+    margin-bottom: 24px;
+}
+
+/* 다운로드 버튼 */
+.download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.button-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px;
+        padding: 40px;
+    }
+    
+    /* 폰트 사이즈 확대 (태블릿) */
+    .h1b, .h1w {
+        font-size: 20px;
+    }
+    
+    .h2b, .h2w {
+        font-size: 18px;
+    }
+    
+    .h3b, .h3w {
+        font-size: 17px;
+    }
+    
+    .answer-buttons {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+    }
+    
+    /* 폰트 사이즈 확대 (데스크톱) */
+    .h1b, .h1w {
+        font-size: 20px;
+    }
+    
+    .h2b, .h2w {
+        font-size: 18px;
+    }
+    
+    .h3b, .h3w {
+        font-size: 17px;
+    }
+}
+
+/* 로딩 팝업 스타일 */
+.loading-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.loading-popup.show {
+    display: flex;
+}
+
+.loading-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+
+.loading-popup-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: popupSlideIn 0.3s ease-out;
+    z-index: 2;
+    text-align: center;
+}
+
+.loading-popup-header {
+    margin-bottom: 24px;
+}
+
+.loading-popup-header {
+    margin-bottom: 0;
+}
+
+.loading-popup-header h1 {
+    margin: 0;
+}
+
+.loading-images {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.popup-bg {
+    width: 110px;
+    height: 110px;
+    animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.crown {
+    position: absolute;
+    width: 74px;
+    height: 75px;
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.loading-description {
+    margin-top: 8px !important;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.loading-description p {
+    line-height: 1.6;
+}
+
+
+
+.loading-button-section {
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Gowun Batang', serif;
+}
+
+
+
+.loading-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    animation: loadingDot 1.4s ease-in-out infinite both;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0s;
+}
+
+@keyframes loadingDot {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 이름 입력 팝업 스타일 */
+.name-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.name-popup.show {
+    display: flex;
+}
+
+.name-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+}
+
+.name-popup-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: popupSlideIn 0.3s ease-out;
+    z-index: 2;
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.name-popup-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.name-popup-header h3 {
+    margin-bottom: 8px;
+}
+
+.name-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Gowun Batang', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000000;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.name-input:focus {
+    outline: none;
+    border-color: #000000;
+}
+
+.name-input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.start-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Gowun Batang', serif;
+}
+
+.close-popup {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-popup:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.8);
+}

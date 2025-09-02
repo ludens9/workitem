@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이세계 탑티어 프리랜서</title>
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:title" content="전설템을 획득하고 퇴사하기">
+    <meta property="og:description" content="나의 업무스타일을 분석하고 탑티어 프리랜서에 도전하세요">
+    <meta property="og:image" content="images/og.png">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="이세계 탑티어 프리랜서">
+    
+    <!-- Twitter Card 메타 태그 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="전설템을 획득하고 퇴사하기">
+    <meta name="twitter:description" content="나의 업무스타일을 분석하고 탑티어 프리랜서에 도전하세요">
+    <meta name="twitter:image" content="images/og.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+<body>
+    <!-- 커버 페이지 -->
+    <div id="cover-page" class="page active">
+        <div class="container">
+            <!-- 히어로 이미지 영역 -->
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <dotlottie-player src="effect.lottie" background="transparent" speed="1" loop autoplay class="hero-lottie"></dotlottie-player>
+                    <img src="images/logo_h.png" alt="히어로 로고" class="hero-logo">
+                </div>
+            </div>
+            
+            <!-- 설명 텍스트 -->
+            <div class="description">
+                <p class="h3b" id="story-text">
+                    <span id="typed-text"></span>
+                    <span id="cursor">|</span>
+                </p>
+            </div>
+            
+            <!-- CTA 버튼 -->
+            <div class="cta-section">
+                <button class="cta-button btn_a h2w" onclick="startTest()">내 전설템 알아보기</button>
+            </div>
+            
+            <!-- 앱 소개 영역 -->
+            <div class="app-intro-cover">
+                <p class="h2b">더 나은 업무습관 —</p>
+                <div class="app-logo-small">
+                    <img src="images/logo.png" alt="앱 로고" onclick="goToPblzWebsite()" style="cursor: pointer;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 질문 페이지들 -->
+    <div id="question-page" class="page">
+        <div class="container">
+            <!-- 상단 네비게이션 -->
+            <div class="top-nav result-top-nav">
+                <div class="center-logo-result">
+                    <img src="images/logo_w.png" alt="로고" class="center-logo-result-img" onclick="goToHome()" style="cursor: pointer;">
+                </div>
+            </div>
+            
+            <!-- 진행 상태바 -->
+            <div class="progress-bar">
+                <div class="progress-item active"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+                <div class="progress-item"></div>
+            </div>
+            
+            <!-- 질문 섹션 -->
+            <div class="question-section">
+                <h2 class="question-title h1b">Q1. 언제 머리가 가장 맑아?</h2>
+                
+                <!-- 답변 버튼들 -->
+                <div class="answer-buttons">
+                    <!-- 동적으로 생성됨 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 결과 페이지는 개별 HTML 파일로 분리됨 (result1.html ~ result36.html) -->
+
+    <!-- 이름 입력 팝업 -->
+    <div id="name-popup" class="name-popup">
+        <div class="name-popup-overlay" onclick="closeNamePopup()"></div>
+        <div class="name-popup-content">
+            <div class="name-popup-header">
+                <h3 class="h1b">이름을 입력해주세요</h3>
+                <p class="h3b">결과에 당신의 이름이 표시됩니다</p>
+            </div>
+            <div class="name-input-section">
+                <input type="text" id="user-name" placeholder="이름을 입력하세요" maxlength="10" class="name-input">
+                <button onclick="startTestWithName()" class="start-button btn_a h2w">시작하기</button>
+            </div>
+            <button onclick="closeNamePopup()" class="close-popup">×</button>
+        </div>
+    </div>
+
+    <!-- 로딩 팝업 -->
+    <div id="loading-popup" class="loading-popup">
+        <div class="loading-popup-overlay"></div>
+        <div class="loading-popup-content">
+            <div class="loading-popup-header">
+                <div class="loading-images">
+                    <img src="images/popbg.png" alt="팝업 배경" class="popup-bg">
+                    <img src="images/crown.png" alt="왕관" class="crown">
+                </div>
+                <h1 class="h1b" id="loading-title">님의 전설템을 찾았습니다!</h1>
+            </div>
+            <div class="loading-description">
+                <p class="h3b">전설템을 획득하고 이세계를 탈출하세요.</p>
+            </div>
+            <div class="loading-button-section">
+                <button id="confirm-button" class="confirm-button btn_a h2w" onclick="showResultPage()">나의 전설템은?</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

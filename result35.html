@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이세계 탑티어 프리랜서</title>
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:title" content="전설템을 획득하고 퇴사하기">
+    <meta property="og:description" content="나의 업무스타일을 분석하고 탑티어 프리랜서에 도전하세요">
+    <meta property="og:image" content="images/og.png">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="이세계 탑티어 프리랜서">
+    
+    <!-- Twitter Card 메타 태그 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="전설템을 획득하고 퇴사하기">
+    <meta name="twitter:description" content="나의 업무스타일을 분석하고 탑티어 프리랜서에 도전하세요">
+    <meta name="twitter:image" content="images/og.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+</head>
+<body>
+    <!-- 결과 페이지 -->
+    <div id="result-page" class="page active">
+        <div class="container">
+            <!-- 상단 네비게이션 -->
+            <div class="top-nav result-top-nav">
+                <div class="center-logo-result">
+                    <img src="images/logo_w.png" alt="로고" class="center-logo-result-img" onclick="restartTest()" style="cursor: pointer;">
+                </div>
+            </div>
+            
+            <!-- 첫번째 섹션: 커버 -->
+            <section class="result-section cover-section">
+                <!-- 히어로 이미지 영역 -->
+                <div class="result-hero-image">
+                    <div class="result-image-container">
+                        <dotlottie-player src="effect.lottie" background="transparent" speed="1" loop autoplay class="result-lottie"></dotlottie-player>
+                        <img src="images/result/35.png" alt="결과 이미지" class="result-image">
+                        <dotlottie-player src="effect2.lottie" background="transparent" speed="1" loop autoplay class="result-lottie-top"></dotlottie-player>
+                    </div>
+                </div>
+                
+                <!-- 결과 타이틀 영역 -->
+                <div class="result-title">
+                    <h2 class="result-title-text">님의 전설템!
+명석하게 빛나는 방패</h2>
+                </div>
+                
+                <!-- 버튼 영역 -->
+                <div class="result-button-area">
+                    <button class="result-share-button btn_a h2w" onclick="shareResult()">공유하기</button>
+                    <button class="result-share-button btn_a h2w" onclick="downloadApp()">
+                        <img src="images/apple.png" alt="애플" class="button-icon">
+                        다운로드
+                    </button>
+                </div>
+                
+                <!-- 앱 소개 영역 -->
+                <div class="app-intro-cover">
+                    <p class="h2b">더 나은 업무습관 만들기 —</p>
+                    <div class="app-logo-small">
+                        <img src="images/logo.png" alt="앱 로고" onclick="goToPblzWebsite()" style="cursor: pointer;">
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 두번째 섹션: 설명 -->
+            <section class="result-section description-section">
+                <div class="section-box">
+                    <!-- 타이틀 영역 -->
+                    <div class="section-title description-title">
+                        <h3 class="h1b">명석하게 빛나는 방패를<br>획득하였습니다.<br>아래 업무스타일을 숙지하고<br>업무 효율과 능률을 '증폭'시키세요</h3>
+                    </div>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <!-- 상세 디테일 영역 -->
+                    <div class="detail-area">
+                        <p class="h3b">분석적이면서도 활동적인 지원 전문가로서, 전략적 사고와 적극적인 실행력으로 조직의 성장을 이끌어갑니다. 다양한 데이터와 정보를 분석하여 전략적 인사이트를 도출하고, 이를 바탕으로 적극적인 실행 계획을 수립하여 추진합니다. 특히 사업 기획이나 전략 수립에서 뛰어난 능력을 보이며, 분석과 실행을 모두 아우르는 균형잡힌 역량을 발휘합니다.<br><br>다양한 역할을 동시에 수행하다 보니 피로감을 느낄 수 있지만, 그만큼 조직 전반에 걸친 폭넓은 기여를 합니다. 팀에서는 전략 기획자 역할을 하며, 조직의 미래 방향성을 제시합니다.</p>
+                    </div>
+                    
+                    <div class="section-divider"></div>
+                    
+                    <!-- 동료 영역 -->
+                    <div class="colleague-area">
+                        <!-- 동료1 -->
+                        <div class="colleague-item">
+                            <div class="colleague-image">
+                                <div class="colleague-img">
+                                    <img src="images/result/4.png" alt="동료1">
+                                </div>
+                            </div>
+                            <div class="colleague-info">
+                                <p class="h2b">이런 사람을 찾으세요</p>
+                                <p class="h1b">신비롭고 튼튼한 마법서</p>
+                                <p class="h3b">안정적 기획으로 전략을 뒷받침합니다.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 동료2 -->
+                        <div class="colleague-item">
+                            <div class="colleague-image">
+                                <div class="colleague-img">
+                                    <img src="images/result/12.png" alt="동료2">
+                                </div>
+                            </div>
+                            <div class="colleague-info">
+                                <p class="h2b">이런 사람을 멀리하세요</p>
+                                <p class="h1b">올바른 예리한 마법봉</p>
+                                <p class="h3b">과도한 완벽주의로 실행 속도를 늦출 수 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 버튼 영역 -->
+                    <div class="section-button-area">
+                        <button class="section-button btn_a h2w" onclick="shareResult()">친구들에게 공유하기</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 세번째 섹션: 요약 -->
+            <section class="result-section summary-section">
+                <div class="section-box">
+                    <!-- 요약 항목들 -->
+                    <div class="summary-item">
+                        <h4 class="h2b">장점</h4>
+                        <p class="h3b">• 전략적 사고와 실행력<br>• 조직 성장 기여</p>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <h4 class="h2b">주의할 점</h4>
+                        <p class="h3b">• 다양한 역할로 인한 피로감</p>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <h4 class="h2b">진짜로 탑티어가 되는 추천루틴</h4>
+                        <p class="h3b">• 전략 수립 시간<br>• 실행 성과 모니터링</p>
+                    </div>
+                    
+                    <!-- 버튼 영역 -->
+                    <div class="section-button-area">
+                        <button class="section-button btn_a h2w" onclick="restartTest()">믿을수 없어... 다시시도</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 네번째 섹션: 앱 소개 -->
+            <section class="result-section app-section">
+                <div class="section-box">
+                    <!-- 앱 로고 영역 -->
+                    <div class="app-logo">
+                        <img src="images/logo.png" alt="앱 로고" class="app-logo-img" onclick="goToPblzWebsite()" style="cursor: pointer;">
+                    </div>
+                    
+                    <!-- 설명 영역 -->
+                    <div class="app-description">
+                        <h3 class="h2b">더 나은 업무습관 만들기</h3>
+                        <p class="h3b">페블즈로 업무 효율과 능률을 '증폭'시키세요</p>
+                    </div>
+                    
+                    <!-- 버튼 영역 -->
+                    <div class="section-button-area">
+                        <button class="section-button btn_a h2w download-button" onclick="downloadApp()">
+                            <img src="images/apple.png" alt="애플" class="button-icon">
+                            다운로드
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="result-page.js"></script>
+</body>
+</html>
