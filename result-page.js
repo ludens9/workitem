@@ -133,6 +133,10 @@ function shareResult() {
     const baseUrl = window.location.origin + window.location.pathname;
     const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
     
+    // 디버깅용 로그
+    console.log('공유 URL:', shareUrl);
+    console.log('사용자 이름:', userName);
+    
     // 공유할 때 사용할 제목과 설명
     const shareTitle = `${decodeURIComponent(userName)}님이 전설템을 획득했습니다.`;
     const shareText = '내 전설템 획득하기';
@@ -144,8 +148,10 @@ function shareResult() {
             url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
-            // 공유 실패 시 클립보드 복사로 대체
-            fallbackShare(shareUrl);
+            // 사용자가 취소한 경우가 아닌 경우에만 클립보드 복사
+            if (err.name !== 'AbortError') {
+                fallbackShare(shareUrl);
+            }
         });
     } else {
         fallbackShare(shareUrl);
@@ -154,6 +160,9 @@ function shareResult() {
 
 // 공유 대체 기능 (클립보드 복사)
 function fallbackShare(shareUrl) {
+    // 포커스를 문서에 주고 클립보드 복사 시도
+    document.body.focus();
+    
     // 링크만 복사
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(shareUrl).then(() => {
