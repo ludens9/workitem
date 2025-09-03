@@ -97,35 +97,15 @@ function updateShareCardMeta(userName, isOwner) {
     
     const decodedName = decodeURIComponent(userName);
     
-    // 현재 페이지의 결과 정보 가져오기
-    const resultTitleElement = document.querySelector('.result-title-text');
-    let itemName = '';
-    if (resultTitleElement) {
-        const titleText = resultTitleElement.textContent;
-        itemName = titleText.split('님의 전설템!')[1]?.trim() || '';
-    }
+    // 모든 공유카드는 동일한 형식
+    const newTitle = `${decodedName}님이 전설템을 획득했습니다. - 이세계 탑티어 프리랜서`;
+    const newDescription = '내 전설템 획득하기';
     
-    if (isOwner) {
-        // 내 결과인 경우
-        const newTitle = `${decodedName}님이 전설템을 획득했습니다.`;
-        const newDescription = '전설템 확인하고 퇴사하기';
-        
-        // 메타태그 업데이트
-        updateMetaTag('og:title', newTitle);
-        updateMetaTag('twitter:title', newTitle);
-        updateMetaTag('og:description', newDescription);
-        updateMetaTag('twitter:description', newDescription);
-    } else {
-        // 친구 결과를 보는 경우
-        const newTitle = `${decodedName}님이 전설템을 획득했습니다.`;
-        const newDescription = `${decodedName}님이 당신의 아이템을 궁금해합니다.`;
-        
-        // 메타태그 업데이트
-        updateMetaTag('og:title', newTitle);
-        updateMetaTag('twitter:title', newTitle);
-        updateMetaTag('og:description', newDescription);
-        updateMetaTag('twitter:description', newDescription);
-    }
+    // 메타태그 업데이트
+    updateMetaTag('og:title', newTitle);
+    updateMetaTag('twitter:title', newTitle);
+    updateMetaTag('og:description', newDescription);
+    updateMetaTag('twitter:description', newDescription);
 }
 
 // 메타태그 업데이트 헬퍼 함수
