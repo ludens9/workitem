@@ -131,62 +131,71 @@ function shareResult() {
     let itemName = '';
     if (resultTitleElement) {
         const titleText = resultTitleElement.textContent;
-        itemName = titleText.split('님의 전설템!')[1]?.trim() || '';
+        // 강화된 전설템인 경우도 처리
+        if (titleText.includes('더욱 강화된 전설템!')) {
+            itemName = titleText.split('더욱 강화된 전설템!')[1]?.trim() || '';
+        } else if (titleText.includes('강화된 전설템!')) {
+            itemName = titleText.split('강화된 전설템!')[1]?.trim() || '';
+        } else {
+            itemName = titleText.split('님의 전설템!')[1]?.trim() || '';
+        }
     }
     
-    // 공유할 때 사용할 제목과 설명
-    const shareTitle = `${decodeURIComponent(userName)}님의 전설템은 ${itemName} 입니다.`;
+    // 개인화된 공유 메시지 생성
+    const shareMessage = `${decodeURIComponent(userName)}님의 전설템은 <${itemName}>입니다.`;
     const shareText = '내 전설템 획득하기';
     
     if (navigator.share) {
         navigator.share({
-            title: shareTitle,
+            title: shareMessage,
             text: shareText,
             url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
             // 사용자가 취소한 경우가 아닌 경우에만 클립보드 복사
             if (err.name !== 'AbortError') {
-                fallbackShare(shareUrl);
+                fallbackShare(shareUrl, shareMessage);
             }
         });
     } else {
-        fallbackShare(shareUrl);
+        fallbackShare(shareUrl, shareMessage);
     }
 }
 
 // 공유 대체 기능 (클립보드 복사)
-function fallbackShare(shareUrl) {
+function fallbackShare(shareUrl, shareMessage) {
     // 포커스를 문서에 주고 클립보드 복사 시도
     document.body.focus();
     
-    // 링크만 복사
+    // 개인화된 메시지와 링크를 함께 복사
+    const fullMessage = `${shareMessage}\n\n${shareUrl}`;
+    
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(() => {
-            alert('링크가 클립보드에 복사되었습니다!');
+        navigator.clipboard.writeText(fullMessage).then(() => {
+            alert('개인화된 메시지와 링크가 클립보드에 복사되었습니다!');
         }).catch(err => {
             console.log('클립보드 복사 실패:', err);
             // 클립보드 API 실패 시 수동 복사 안내
-            promptManualCopy(shareUrl);
+            promptManualCopy(fullMessage);
         });
     } else {
         // 클립보드 API 미지원 시 수동 복사 안내
-        promptManualCopy(shareUrl);
+        promptManualCopy(fullMessage);
     }
 }
 
 // 수동 복사 안내
-function promptManualCopy(shareUrl) {
+function promptManualCopy(fullMessage) {
     const textArea = document.createElement('textarea');
-    textArea.value = shareUrl;
+    textArea.value = fullMessage;
     document.body.appendChild(textArea);
     textArea.select();
     
     try {
         document.execCommand('copy');
-        alert('링크가 복사되었습니다!');
+        alert('개인화된 메시지와 링크가 복사되었습니다!');
     } catch (err) {
-        alert(`링크를 수동으로 복사해주세요:\n\n${shareUrl}`);
+        alert(`메시지를 수동으로 복사해주세요:\n\n${fullMessage}`);
     }
     
     document.body.removeChild(textArea);
