@@ -91,21 +91,10 @@ function hideUnnecessaryButtons() {
     });
 }
 
-// 공유카드 메타태그 업데이트
+// 공유카드 메타태그 업데이트 (더 이상 사용하지 않음 - 정적 메타태그로 통일)
 function updateShareCardMeta(userName, isOwner) {
-    if (!userName) return;
-    
-    const decodedName = decodeURIComponent(userName);
-    
-    // 모든 공유카드는 동일한 형식
-    const newTitle = `${decodedName}님이 전설템을 획득했습니다. - 이세계 탑티어 프리랜서`;
-    const newDescription = '내 전설템 획득하기';
-    
-    // 메타태그 업데이트
-    updateMetaTag('og:title', newTitle);
-    updateMetaTag('twitter:title', newTitle);
-    updateMetaTag('og:description', newDescription);
-    updateMetaTag('twitter:description', newDescription);
+    // 정적 메타태그로 통일했으므로 이 함수는 더 이상 사용하지 않음
+    return;
 }
 
 // 메타태그 업데이트 헬퍼 함수
@@ -137,8 +126,16 @@ function shareResult() {
     console.log('공유 URL:', shareUrl);
     console.log('사용자 이름:', userName);
     
+    // 현재 페이지의 결과 정보 가져오기
+    const resultTitleElement = document.querySelector('.result-title-text');
+    let itemName = '';
+    if (resultTitleElement) {
+        const titleText = resultTitleElement.textContent;
+        itemName = titleText.split('님의 전설템!')[1]?.trim() || '';
+    }
+    
     // 공유할 때 사용할 제목과 설명
-    const shareTitle = `${decodeURIComponent(userName)}님이 전설템을 획득했습니다.`;
+    const shareTitle = `${decodeURIComponent(userName)}님의 전설템은 ${itemName} 입니다.`;
     const shareText = '내 전설템 획득하기';
     
     if (navigator.share) {
