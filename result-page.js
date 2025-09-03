@@ -55,9 +55,9 @@ function updateActionButtons(isOwner) {
             <button class="result-share-button btn_a h2w" onclick="shareResult()" style="width: 100%;">공유하기</button>
         `;
     } else {
-        // 친구 결과를 보는 경우 - 나도 테스트해보기만
+        // 친구 결과를 보는 경우 - 내 전설템 획득하기만
         buttonArea.innerHTML = `
-            <button class="result-share-button btn_a h2w" onclick="goToMainTest()">나도 테스트해보기</button>
+            <button class="result-share-button btn_a h2w" onclick="goToMainTest()">내 전설템 획득하기</button>
         `;
     }
 }
@@ -129,19 +129,18 @@ function shareResult() {
     const isOwner = urlParams.get('owner') === 'true';
     const userName = urlParams.get('name') || '당신';
     
-    let shareUrl;
-    if (isOwner) {
-        // 내 결과를 공유할 때는 owner 파라미터 제거
-        shareUrl = window.location.href.replace('&owner=true', '');
-    } else {
-        // 친구 결과를 공유할 때는 그대로
-        shareUrl = window.location.href;
-    }
+    // 공유할 URL 생성 (이름 포함, owner 파라미터 제거)
+    const baseUrl = window.location.origin + window.location.pathname;
+    const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
+    
+    // 공유할 때 사용할 제목과 설명
+    const shareTitle = `${decodeURIComponent(userName)}님이 전설템을 획득했습니다.`;
+    const shareText = '내 전설템 획득하기';
     
     if (navigator.share) {
         navigator.share({
-            title: `${userName}님의 전설템 결과!`,
-            text: `${userName}님의 업무스타일 분석 결과를 확인해보세요!`,
+            title: shareTitle,
+            text: shareText,
             url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
