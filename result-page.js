@@ -143,12 +143,10 @@ function shareResult() {
     
     // 개인화된 공유 메시지 생성
     const shareMessage = `${decodeURIComponent(userName)}님의 전설템은 <${itemName}>입니다.`;
-    const shareText = '내 전설템 획득하기';
     
     if (navigator.share) {
         navigator.share({
             title: shareMessage,
-            text: shareText,
             url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
@@ -167,35 +165,33 @@ function fallbackShare(shareUrl, shareMessage) {
     // 포커스를 문서에 주고 클립보드 복사 시도
     document.body.focus();
     
-    // 개인화된 메시지와 링크를 함께 복사
-    const fullMessage = `${shareMessage}\n\n${shareUrl}`;
-    
+    // 개인화된 메시지만 복사 (링크 제거)
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(fullMessage).then(() => {
-            alert('개인화된 메시지와 링크가 클립보드에 복사되었습니다!');
+        navigator.clipboard.writeText(shareMessage).then(() => {
+            alert('개인화된 메시지가 클립보드에 복사되었습니다!');
         }).catch(err => {
             console.log('클립보드 복사 실패:', err);
             // 클립보드 API 실패 시 수동 복사 안내
-            promptManualCopy(fullMessage);
+            promptManualCopy(shareMessage);
         });
     } else {
         // 클립보드 API 미지원 시 수동 복사 안내
-        promptManualCopy(fullMessage);
+        promptManualCopy(shareMessage);
     }
 }
 
 // 수동 복사 안내
-function promptManualCopy(fullMessage) {
+function promptManualCopy(shareMessage) {
     const textArea = document.createElement('textarea');
-    textArea.value = fullMessage;
+    textArea.value = shareMessage;
     document.body.appendChild(textArea);
     textArea.select();
     
     try {
         document.execCommand('copy');
-        alert('개인화된 메시지와 링크가 복사되었습니다!');
+        alert('개인화된 메시지가 복사되었습니다!');
     } catch (err) {
-        alert(`메시지를 수동으로 복사해주세요:\n\n${fullMessage}`);
+        alert(`메시지를 수동으로 복사해주세요:\n\n${shareMessage}`);
     }
     
     document.body.removeChild(textArea);
