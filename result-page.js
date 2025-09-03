@@ -35,6 +35,14 @@ function personalizeResultPage() {
     
     // 버튼 분기 처리
     updateActionButtons(isOwner);
+    
+    // 친구가 보는 경우 불필요한 버튼들 숨기기
+    if (!isOwner) {
+        hideUnnecessaryButtons();
+    }
+    
+    // 공유카드 메타태그 업데이트
+    updateShareCardMeta(userName, isOwner);
 }
 
 // 버튼 분기 처리 함수
@@ -42,10 +50,9 @@ function updateActionButtons(isOwner) {
     const buttonArea = document.querySelector('.result-button-area');
     
     if (isOwner) {
-        // 내 결과인 경우 - 공유하기 + 다시 테스트하기
+        // 내 결과인 경우 - 공유하기만 (width 100%)
         buttonArea.innerHTML = `
-            <button class="result-share-button btn_a h2w" onclick="shareResult()">공유하기</button>
-            <button class="result-share-button btn_a h2w" onclick="restartTest()">다시 테스트하기</button>
+            <button class="result-share-button btn_a h2w" onclick="shareResult()" style="width: 100%;">공유하기</button>
         `;
     } else {
         // 친구 결과를 보는 경우 - 나도 테스트해보기만
@@ -63,6 +70,77 @@ function restartTest() {
 // 나도 테스트해보기 - 메인 페이지로 이동
 function goToMainTest() {
     window.location.href = 'index.html';
+}
+
+// 친구가 보는 경우 불필요한 버튼들 숨기기
+function hideUnnecessaryButtons() {
+    // "친구들에게 공유하기" 버튼 숨기기
+    const shareButtons = document.querySelectorAll('.section-button');
+    shareButtons.forEach(button => {
+        if (button.textContent.includes('친구들에게 공유하기')) {
+            button.style.display = 'none';
+        }
+    });
+    
+    // "믿을수 없어... 다시시도" 버튼 숨기기
+    const restartButtons = document.querySelectorAll('.section-button');
+    restartButtons.forEach(button => {
+        if (button.textContent.includes('믿을수 없어')) {
+            button.style.display = 'none';
+        }
+    });
+}
+
+// 공유카드 메타태그 업데이트
+function updateShareCardMeta(userName, isOwner) {
+    if (!userName) return;
+    
+    const decodedName = decodeURIComponent(userName);
+    
+    // 현재 페이지의 결과 정보 가져오기
+    const resultTitleElement = document.querySelector('.result-title-text');
+    let itemName = '';
+    if (resultTitleElement) {
+        const titleText = resultTitleElement.textContent;
+        itemName = titleText.split('님의 전설템!')[1]?.trim() || '';
+    }
+    
+    if (isOwner) {
+        // 내 결과인 경우
+        const newTitle = `${decodedName}님이 전설템을 획득했습니다.`;
+        const newDescription = '전설템 확인하고 퇴사하기';
+        
+        // 메타태그 업데이트
+        updateMetaTag('og:title', newTitle);
+        updateMetaTag('twitter:title', newTitle);
+        updateMetaTag('og:description', newDescription);
+        updateMetaTag('twitter:description', newDescription);
+    } else {
+        // 친구 결과를 보는 경우
+        const newTitle = `${decodedName}님이 전설템을 획득했습니다.`;
+        const newDescription = `${decodedName}님이 당신의 아이템을 궁금해합니다.`;
+        
+        // 메타태그 업데이트
+        updateMetaTag('og:title', newTitle);
+        updateMetaTag('twitter:title', newTitle);
+        updateMetaTag('og:description', newDescription);
+        updateMetaTag('twitter:description', newDescription);
+    }
+}
+
+// 메타태그 업데이트 헬퍼 함수
+function updateMetaTag(property, content) {
+    // Open Graph 메타태그
+    let metaTag = document.querySelector(`meta[property="${property}"]`);
+    if (metaTag) {
+        metaTag.setAttribute('content', content);
+    }
+    
+    // Twitter Card 메타태그
+    metaTag = document.querySelector(`meta[name="${property}"]`);
+    if (metaTag) {
+        metaTag.setAttribute('content', content);
+    }
 }
 
 // 결과 공유하기
