@@ -43,6 +43,12 @@ function personalizeResultPage() {
     
     // 공유카드 메타태그 업데이트
     updateShareCardMeta(userName, isOwner);
+    
+    // 두번째 섹션 타이틀 개인화
+    updateDescriptionTitle(userName);
+    
+    // 동료영역 문구 변경
+    updateColleagueTexts();
 }
 
 // 버튼 분기 처리 함수
@@ -55,9 +61,9 @@ function updateActionButtons(isOwner) {
             <button class="result-share-button btn_a h2w" onclick="shareResult()" style="width: 100%;">공유하기</button>
         `;
     } else {
-        // 친구 결과를 보는 경우 - 내 전설템 획득하기만
+        // 친구 결과를 보는 경우 - 나도 획득하기만
         buttonArea.innerHTML = `
-            <button class="result-share-button btn_a h2w" onclick="goToMainTest()">내 전설템 획득하기</button>
+            <button class="result-share-button btn_a h2w" onclick="goToMainTest()">나도 획득하기</button>
         `;
     }
 }
@@ -95,6 +101,41 @@ function hideUnnecessaryButtons() {
 function updateShareCardMeta(userName, isOwner) {
     // 정적 메타태그로 통일했으므로 이 함수는 더 이상 사용하지 않음
     return;
+}
+
+// 두번째 섹션 타이틀 개인화 함수
+function updateDescriptionTitle(userName) {
+    const descriptionTitleElement = document.querySelector('.description-title h3');
+    if (descriptionTitleElement && userName) {
+        const originalText = descriptionTitleElement.innerHTML;
+        
+        // 기존 텍스트에서 아이템 이름 추출
+        const itemNameMatch = originalText.match(/([^를]+)를/);
+        if (itemNameMatch) {
+            const itemName = itemNameMatch[1];
+            const newText = `${decodeURIComponent(userName)}님이 ${itemName}를<br>획득하였습니다.<br>아래 업무스타일을 숙지하고 사용하면<br>업무 효율과 능률이 '증폭'됩니다.`;
+            descriptionTitleElement.innerHTML = newText;
+        }
+    }
+}
+
+// 동료영역 문구 변경 함수
+function updateColleagueTexts() {
+    // "이런 사람을 찾으세요" → "good friend"
+    const goodFriendElements = document.querySelectorAll('.colleague-info p.h2b');
+    goodFriendElements.forEach(element => {
+        if (element.textContent.includes('이런 사람을 찾으세요')) {
+            element.textContent = 'good friend';
+        }
+    });
+    
+    // "이런 사람을 멀리하세요" → "bad friend"
+    const badFriendElements = document.querySelectorAll('.colleague-info p.h2b');
+    badFriendElements.forEach(element => {
+        if (element.textContent.includes('이런 사람을 멀리하세요')) {
+            element.textContent = 'bad friend';
+        }
+    });
 }
 
 // 메타태그 업데이트 헬퍼 함수
