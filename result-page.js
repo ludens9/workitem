@@ -16,9 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 결과 페이지 개인화 함수
 function personalizeResultPage() {
-    // URL 파라미터에서 이름 가져오기
+    // URL 파라미터에서 이름과 소유자 여부 가져오기
     const urlParams = new URLSearchParams(window.location.search);
     const userName = urlParams.get('name');
+    const isOwner = urlParams.get('owner') === 'true';
     
     if (userName) {
         // 결과 타이틀 요소 찾기
@@ -29,61 +30,92 @@ function personalizeResultPage() {
             const itemName = originalTitle.replace('님의 전설템!\n', '').replace('님의 전설템!', '').trim();
             // "임버드님의 전설템! 아이템명" 형식으로 변경 (공백 없이)
             resultTitleElement.innerHTML = `${decodeURIComponent(userName)}님의 전설템!\n${itemName}`;
-            
-            // Open Graph 메타 태그 업데이트 제거됨
         }
     }
+    
+    // 버튼 분기 처리
+    updateActionButtons(isOwner);
 }
 
-// Open Graph 메타 태그 업데이트 함수 제거됨
+// 버튼 분기 처리 함수
+function updateActionButtons(isOwner) {
+    const buttonArea = document.querySelector('.result-button-area');
+    
+    if (isOwner) {
+        // 내 결과인 경우 - 공유하기 + 다시 테스트하기
+        buttonArea.innerHTML = `
+            <button class="result-share-button btn_a h2w" onclick="shareResult()">공유하기</button>
+            <button class="result-share-button btn_a h2w" onclick="restartTest()">다시 테스트하기</button>
+        `;
+    } else {
+        // 친구 결과를 보는 경우 - 나도 테스트해보기만
+        buttonArea.innerHTML = `
+            <button class="result-share-button btn_a h2w" onclick="goToMainTest()">나도 테스트해보기</button>
+        `;
+    }
+}
 
 // 다시하기 - 메인 페이지로 이동
 function restartTest() {
     window.location.href = 'index.html';
 }
 
+// 나도 테스트해보기 - 메인 페이지로 이동
+function goToMainTest() {
+    window.location.href = 'index.html';
+}
+
 // 결과 공유하기
 function shareResult() {
-    // 공유 텍스트 제거됨
+    const urlParams = new URLSearchParams(window.location.search);
+    const isOwner = urlParams.get('owner') === 'true';
+    const userName = urlParams.get('name') || '당신';
     
-    // 메인페이지 링크 (결과페이지가 아닌)
-    const mainPageUrl = window.location.origin + window.location.pathname.replace(/result\d+\.html/, 'index.html');
+    let shareUrl;
+    if (isOwner) {
+        // 내 결과를 공유할 때는 owner 파라미터 제거
+        shareUrl = window.location.href.replace('&owner=true', '');
+    } else {
+        // 친구 결과를 공유할 때는 그대로
+        shareUrl = window.location.href;
+    }
     
     if (navigator.share) {
         navigator.share({
-            title: '전설템을 획득하고 퇴사하기',
-            url: mainPageUrl
+            title: `${userName}님의 전설템 결과!`,
+            text: `${userName}님의 업무스타일 분석 결과를 확인해보세요!`,
+            url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
             // 공유 실패 시 클립보드 복사로 대체
-            fallbackShare(mainPageUrl);
+            fallbackShare(shareUrl);
         });
     } else {
-        fallbackShare(mainPageUrl);
+        fallbackShare(shareUrl);
     }
 }
 
 // 공유 대체 기능 (클립보드 복사)
-function fallbackShare(mainPageUrl) {
+function fallbackShare(shareUrl) {
     // 링크만 복사
     if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(mainPageUrl).then(() => {
+        navigator.clipboard.writeText(shareUrl).then(() => {
             alert('링크가 클립보드에 복사되었습니다!');
         }).catch(err => {
             console.log('클립보드 복사 실패:', err);
             // 클립보드 API 실패 시 수동 복사 안내
-            promptManualCopy(mainPageUrl);
+            promptManualCopy(shareUrl);
         });
     } else {
         // 클립보드 API 미지원 시 수동 복사 안내
-        promptManualCopy(mainPageUrl);
+        promptManualCopy(shareUrl);
     }
 }
 
 // 수동 복사 안내
-function promptManualCopy(mainPageUrl) {
+function promptManualCopy(shareUrl) {
     const textArea = document.createElement('textarea');
-    textArea.value = mainPageUrl;
+    textArea.value = shareUrl;
     document.body.appendChild(textArea);
     textArea.select();
     
@@ -91,7 +123,7 @@ function promptManualCopy(mainPageUrl) {
         document.execCommand('copy');
         alert('링크가 복사되었습니다!');
     } catch (err) {
-        alert(`링크를 수동으로 복사해주세요:\n\n${mainPageUrl}`);
+        alert(`링크를 수동으로 복사해주세요:\n\n${shareUrl}`);
     }
     
     document.body.removeChild(textArea);

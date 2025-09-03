@@ -918,8 +918,8 @@ function showResultPage() {
     const resultNumber = resultData.resultId || 1;
     console.log('Result number:', resultNumber);
     
-    // 결과 페이지로 이동
-    const resultUrl = `result${resultNumber}.html?name=${encodeURIComponent(userName)}`;
+    // 결과 페이지로 이동 (소유자임을 표시하는 파라미터 추가)
+    const resultUrl = `result${resultNumber}.html?name=${encodeURIComponent(userName)}&owner=true`;
     console.log('Result URL:', resultUrl);
     
     window.location.href = resultUrl;
