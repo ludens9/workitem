@@ -21,6 +21,11 @@ function personalizeResultPage() {
     const userName = urlParams.get('name');
     const isOwner = urlParams.get('owner') === 'true';
     
+    console.log('현재 URL:', window.location.href); // 디버깅용
+    console.log('URL 파라미터:', window.location.search); // 디버깅용
+    console.log('userName:', userName); // 디버깅용
+    console.log('isOwner:', isOwner); // 디버깅용
+    
     if (userName) {
         // 결과 타이틀 요소 찾기
         const resultTitleElement = document.querySelector('.result-title-text');
@@ -45,6 +50,7 @@ function personalizeResultPage() {
     updateShareCardMeta(userName, isOwner);
     
     // 두번째 섹션 타이틀 개인화
+    console.log('updateDescriptionTitle 호출 전, userName:', userName); // 디버깅용
     updateDescriptionTitle(userName);
     
     // 동료영역 문구 변경
@@ -105,17 +111,39 @@ function updateShareCardMeta(userName, isOwner) {
 
 // 두번째 섹션 타이틀 개인화 함수
 function updateDescriptionTitle(userName) {
+    console.log('updateDescriptionTitle 함수 실행됨, userName:', userName); // 디버깅용
     const descriptionTitleElement = document.querySelector('.description-title h3');
+    console.log('descriptionTitleElement 찾음:', descriptionTitleElement); // 디버깅용
     if (descriptionTitleElement && userName) {
         const originalText = descriptionTitleElement.innerHTML;
+        console.log('원본 텍스트:', originalText); // 디버깅용
         
-        // 기존 텍스트에서 아이템 이름 추출
-        const itemNameMatch = originalText.match(/([^를]+)를/);
-        if (itemNameMatch) {
-            const itemName = itemNameMatch[1];
-            const newText = `${decodeURIComponent(userName)}님이 ${itemName}를<br>획득하였습니다.<br>아래 업무스타일을 숙지하고 사용하면<br>업무 효율과 능률이 '증폭'됩니다.`;
-            descriptionTitleElement.innerHTML = newText;
+        // 기존 텍스트에서 아이템 이름 추출 (간단한 방법)
+        let itemName = '';
+        
+        // 첫 번째 줄에서 "아이템명을" 패턴 추출
+        const lines = originalText.split('<br>');
+        if (lines.length > 0) {
+            const firstLine = lines[0];
+            console.log('첫 번째 줄:', firstLine); // 디버깅용
+            // "을" 또는 "를" 패턴으로 수정
+            const itemNameMatch = firstLine.match(/([^을를]+)[을를]/);
+            if (itemNameMatch) {
+                itemName = itemNameMatch[1].trim();
+            }
         }
+        
+        console.log('추출된 아이템 이름:', itemName); // 디버깅용
+        
+        if (itemName) {
+            const newText = `${decodeURIComponent(userName)}님이 ${itemName}를<br>획득하였습니다.<br>아래의 업무능력이 '증폭'됩니다.`;
+            descriptionTitleElement.innerHTML = newText;
+            console.log('수정된 텍스트:', newText); // 디버깅용
+        } else {
+            console.log('아이템 이름을 찾을 수 없습니다. 원본:', originalText); // 디버깅용
+        }
+    } else {
+        console.log('요소를 찾을 수 없거나 사용자 이름이 없습니다.'); // 디버깅용
     }
 }
 
@@ -185,7 +213,8 @@ function shareResult() {
     // 개인화된 공유 메시지 생성
     const shareMessage = `${decodeURIComponent(userName)}님의 전설템은 <${itemName}>입니다.`;
     
-    if (navigator.share) {
+    // 모바일에서만 네이티브 공유 사용, 데스크탑에서는 바로 클립보드 복사
+    if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         navigator.share({
             title: shareMessage,
             url: shareUrl
@@ -197,7 +226,27 @@ function shareResult() {
             }
         });
     } else {
-        fallbackShare(shareUrl, shareMessage);
+        // 데스크탑에서는 시스템 팝업으로 "복사되었습니다" 메시지 표시
+        fallbackShareWithSystemPopup(shareUrl, shareMessage);
+    }
+}
+
+// 데스크탑용 공유 기능 (시스템 팝업으로 "복사되었습니다" 표시)
+function fallbackShareWithSystemPopup(shareUrl, shareMessage) {
+    // 개인화 메시지 + URL을 함께 복사
+    const fullShareText = `${shareMessage}\n\n${shareUrl}`;
+    
+    // 포커스를 문서에 주고 클립보드 복사 시도
+    document.body.focus();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullShareText).then(() => {
+            alert('복사되었습니다');
+        }).catch(err => {
+            console.log('클립보드 복사 실패:', err);
+            promptManualCopy(fullShareText);
+        });
+    } else {
+        promptManualCopy(fullShareText);
     }
 }
 
@@ -209,7 +258,8 @@ function fallbackShare(shareUrl, shareMessage) {
     // 개인화된 메시지만 복사 (링크 제거)
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(shareMessage).then(() => {
-            alert('개인화된 메시지가 클립보드에 복사되었습니다!');
+            // 복사 성공 토스트 표시
+            showCopyToast('개인화된 메시지가 복사되었습니다!');
         }).catch(err => {
             console.log('클립보드 복사 실패:', err);
             // 클립보드 API 실패 시 수동 복사 안내
@@ -230,12 +280,64 @@ function promptManualCopy(shareMessage) {
     
     try {
         document.execCommand('copy');
-        alert('개인화된 메시지가 복사되었습니다!');
+        // 복사 성공 토스트 표시
+        showCopyToast('개인화된 메시지가 복사되었습니다!');
     } catch (err) {
+        // 복사 실패 시에만 알림 표시
         alert(`메시지를 수동으로 복사해주세요:\n\n${shareMessage}`);
     }
     
     document.body.removeChild(textArea);
+}
+
+// 복사 토스트 표시 함수
+function showCopyToast(message) {
+    // 기존 토스트가 있으면 제거
+    const existingToast = document.querySelector('.copy-toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // 토스트 요소 생성
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = message;
+    
+    // 토스트 스타일 적용
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    `;
+    
+    // 토스트를 body에 추가
+    document.body.appendChild(toast);
+    
+    // 페이드 인 효과
+    setTimeout(() => {
+        toast.style.opacity = '1';
+    }, 10);
+    
+    // 2초 후 페이드 아웃 및 제거
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 300);
+    }, 2000);
 }
 
 // 앱 다운로드 - PBLZ 앱스토어로 이동
