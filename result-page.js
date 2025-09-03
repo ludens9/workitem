@@ -213,16 +213,20 @@ function shareResult() {
     // 개인화된 공유 메시지 생성
     const shareMessage = `${decodeURIComponent(userName)}님의 전설템은 <${itemName}>입니다.`;
     
-    // 모바일에서만 네이티브 공유 사용, 데스크탑에서는 바로 클립보드 복사
+    // 개인화 메시지 + URL을 함께 공유
+    const fullShareText = `${shareMessage}\n\n${shareUrl}`;
+    
+    // 모바일에서만 네이티브 공유 사용
     if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         navigator.share({
             title: shareMessage,
+            text: fullShareText,
             url: shareUrl
         }).catch(err => {
             console.log('공유 실패:', err);
             // 사용자가 취소한 경우가 아닌 경우에만 클립보드 복사
             if (err.name !== 'AbortError') {
-                fallbackShare(shareUrl, shareMessage);
+                fallbackShareWithSystemPopup(shareUrl, shareMessage);
             }
         });
     } else {
